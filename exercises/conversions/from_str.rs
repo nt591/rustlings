@@ -21,6 +21,19 @@ struct Person {
 impl FromStr for Person {
     type Err = String;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+        if s.len() == 0 {
+            return Err("invalid".to_string());
+        }
+
+        let parsed: Vec<&str> = s.split(" ").collect();
+        let name = parsed[0].to_string();
+
+        let mut age = parsed[1].parse::<usize>();
+
+        return Ok(Person {
+            name,
+            age,
+        })
     }
 }
 
